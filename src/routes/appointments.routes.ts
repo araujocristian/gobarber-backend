@@ -3,6 +3,8 @@ import { startOfHour, parseISO } from 'date-fns';
 
 import AppointmentsRepository from '../repositories/AppointmentsRepository';
 
+// DTO - Data Transfer Object
+
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppointmentsRepository();
 
@@ -27,7 +29,10 @@ appointmentsRouter.post('/', (request, response) => {
       .json({ message: 'This appointment is already booked' });
   }
 
-  const appointment = appointmentsRepository.create(provider, parsedDate);
+  const appointment = appointmentsRepository.create({
+    provider,
+    date: parsedDate,
+  });
 
   return response.json({ appointment });
 });

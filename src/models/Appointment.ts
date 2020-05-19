@@ -7,7 +7,8 @@ class Appointment {
 
   date: Date;
 
-  constructor(provider: string, date: Date) {
+  // Função TS Omit<Tipo, Variavel para omitir>
+  constructor({ provider, date }: Omit<Appointment, 'id'>) {
     this.id = uuid();
     this.provider = provider;
     this.date = date;
