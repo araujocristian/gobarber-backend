@@ -12,6 +12,7 @@ export default class CreateApointments1592669972271
             type: 'varchar',
             isPrimary: true,
             generationStrategy: 'uuid',
+            default: 'uuid_generate_v4()',
           },
           {
             name: 'provider',
