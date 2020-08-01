@@ -11,7 +11,7 @@ import AppointmentsRepository from '@modules/appointments/infra/typeorm/reposito
  * [x] Acesso ao repositório
  */
 
-interface Request {
+interface IRequest {
   provider_id: string;
   date: Date;
 }
@@ -20,11 +20,12 @@ interface Request {
  * Dependency Inversion (SOLID)
  *
  * Single Responsibility Principle
+ * Liskov Substitution Principle
  * Dependency Inversion Principle
  */
 
 class CreateAppointmentService {
-  public async execute({ date, provider_id }: Request): Promise<Appointment> {
+  public async execute({ date, provider_id }: IRequest): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
 
     const appointmentDate = startOfHour(date);
@@ -37,12 +38,10 @@ class CreateAppointmentService {
       throw new AppError('This appointment is already booked');
     }
 
-    const appointment = appointmentsRepository.create({
+    const appointment = await appointmentsRepository.create({
       provider_id,
       date: appointmentDate,
     });
-
-    await appointmentsRepository.save(appointment);
 
     return appointment;
   }
