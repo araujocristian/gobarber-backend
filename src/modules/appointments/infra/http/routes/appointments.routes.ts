@@ -12,7 +12,6 @@ import ensureAuthenticated from '@modules/users/infra/middlewares/ensureAuthenti
 // Rota: Receber a requisição, chamar outro arquivo, devolver uma resposta.
 
 const appointmentsRouter = Router();
-const appointmentsRepository = new AppointmentsRepository();
 
 appointmentsRouter.use(ensureAuthenticated);
 
@@ -28,6 +27,7 @@ appointmentsRouter.post('/', async (request, response) => {
   // Diferenciar transformação do dado de regra de negócio
   const parsedDate = parseISO(date);
 
+  const appointmentsRepository = new AppointmentsRepository();
   const createAppointment = new CreateAppointmentService(
     appointmentsRepository,
   );
