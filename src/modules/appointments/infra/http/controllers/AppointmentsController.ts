@@ -20,6 +20,6 @@ export default class AppointmentsController {
       user_id,
     });
 
-    return response.json({ appointment });
+    return response.json(appointment);
   }
 }
