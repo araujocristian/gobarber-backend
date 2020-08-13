@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import ensureAuthenticated from '@modules/users/infra/middlewares/ensureAuthenticated';
 import AppointmentsController from '../controllers/AppointmentsController';
+import ProviderAppointmentsController from '../controllers/ProviderAppointmentsController';
 
 // DTO - Data Transfer Object
 // DRY - Don't Repeat Yoursefl
@@ -10,6 +11,7 @@ import AppointmentsController from '../controllers/AppointmentsController';
 
 const appointmentsRouter = Router();
 const appointmentsController = new AppointmentsController();
+const providerAppointmentsController = new ProviderAppointmentsController();
 
 appointmentsRouter.use(ensureAuthenticated);
 
@@ -20,5 +22,6 @@ appointmentsRouter.use(ensureAuthenticated);
 // });
 
 appointmentsRouter.post('/', appointmentsController.create);
+appointmentsRouter.get('/me', providerAppointmentsController.index);
 
 export default appointmentsRouter;
